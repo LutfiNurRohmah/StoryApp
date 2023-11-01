@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,14 +28,6 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.isLoading.observe(this){
-            showLoading(it)
-        }
-
-        viewModel.messages.observe(this){
-            showToast(it)
-        }
-
         setupView()
         registerUser()
     }
@@ -54,46 +45,24 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    private fun setupAction() {
-        binding.signupButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-
-            AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
-                setPositiveButton("Lanjut") { _, _ ->
-                    finish()
-                }
-                create()
-                show()
-            }
-        }
-    }
-
     private fun registerUser() {
+        viewModel.isLoading.observe(this){
+            showLoading(it)
+        }
+
+        viewModel.isSuccess.observe(this){
+            showAlert(it)
+        }
+
         binding.signupButton.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            showLoading(true)
             lifecycleScope.launch {
+                showLoading(true)
                 viewModel.registerUser(name, email, password)
             }
-
-            AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Akun dengan email $email sudah jadi nih. Yuk, login dan bagikan ceritamu.")
-                setPositiveButton("Lanjut") { _, _ ->
-                    val intent = Intent(context, WelcomeActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
-                create()
-                show()
-            }
-
         }
     }
 
@@ -101,7 +70,26 @@ class RegisterActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun showAlert(isSuccess: Boolean) {
+        viewModel.messages.observe(this){ response ->
+            AlertDialog.Builder(this).apply {
+                if (isSuccess) {
+                    setTitle("Register Berhasil")
+                    setMessage(response)
+                    setPositiveButton("Lanjut") { _, _ ->
+                        val intent = Intent(context, WelcomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+                } else if (!isSuccess) {
+                    setTitle("Register Gagal")
+                    setMessage(response)
+                    setNegativeButton("Kembali", null)
+                }
+                create()
+                show()
+            }
+        }
     }
 }

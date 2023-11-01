@@ -14,19 +14,24 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _messages = MutableLiveData<String>()
-    val messages: LiveData<String> = _messages
+    private val _messages = MutableLiveData<String?>()
+    val messages: LiveData<String?> = _messages
+
+    private val _isSuccess = MutableLiveData<Boolean>()
+    val isSuccess: LiveData<Boolean> = _isSuccess
 
     suspend fun registerUser(name: String, email: String, password: String) {
         try {
             val message = userRepository.registerUser(name, email, password)
             _isLoading.value = false
-            _messages.value = message.toString()
+            _isSuccess.value = true
+            _messages.value = message
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             _isLoading.value = false
+            _isSuccess.value = false
             _messages.value = errorMessage.toString()
         }
     }
