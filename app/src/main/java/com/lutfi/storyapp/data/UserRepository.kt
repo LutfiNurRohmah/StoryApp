@@ -1,5 +1,6 @@
 package com.lutfi.storyapp.data
 
+import com.lutfi.storyapp.data.api.response.LoginResponse
 import com.lutfi.storyapp.data.api.retrofit.ApiService
 import com.lutfi.storyapp.data.pref.UserModel
 import com.lutfi.storyapp.data.pref.UserPreference
@@ -23,6 +24,10 @@ class UserRepository private constructor(
 
     suspend fun registerUser(name: String, email: String, password: String) : String? {
         return apiService.register(name, email, password).message.toString()
+    }
+
+    suspend fun loginUser(email: String, password: String) : LoginResponse {
+        return apiService.login(email, password)
     }
 
     companion object {
