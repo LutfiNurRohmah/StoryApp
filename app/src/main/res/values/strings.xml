@@ -13,4 +13,6 @@
     <string name="title_login_page">Sudah siap untuk berbagi cerita?</string>
     <string name="name">Nama</string>
     <string name="logout">Keluar</string>
+    <string name="judul_story">Dicoding Story</string>
+    <string name="deskripsi_story">Pada hari ini aku belajar tentang Android, iOS, Machine Learning, Cloud, Front-End, Back-End, dan bidang IT lainnya</string>
 </resources>

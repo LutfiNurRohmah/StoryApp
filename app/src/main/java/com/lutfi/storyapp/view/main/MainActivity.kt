@@ -9,10 +9,16 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.lutfi.storyapp.R
+import com.lutfi.storyapp.adapter.StoriesAdapter
+import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.databinding.ActivityMainBinding
 import com.lutfi.storyapp.view.ViewModelFactory
 import com.lutfi.storyapp.view.welcome.WelcomeActivity
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,11 +37,11 @@ class MainActivity : AppCompatActivity() {
             if (!user.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
+            } else if (user.isLogin) {
+                setupAction()
             }
         }
-
         setupView()
-        setupAction()
     }
 
     private fun setupView() {
@@ -63,8 +69,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-//        binding.logoutButton.setOnClickListener {
-//            viewModel.logout()
-//        }
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvStories.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+        binding.rvStories.addItemDecoration(itemDecoration)
+
+        lifecycleScope.launch {
+            viewModel.getStories()
+        }
+
+        viewModel.listStories.observe(this) {
+            setStoriesData(it)
+        }
+    }
+
+    private fun setStoriesData(stories: List<ListStoryItem?>) {
+        val adapter = StoriesAdapter()
+        adapter.submitList(stories)
+        binding.rvStories.adapter = adapter
     }
 }

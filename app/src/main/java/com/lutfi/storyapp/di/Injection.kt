@@ -8,8 +8,8 @@ import com.lutfi.storyapp.data.pref.dataStore
 
 object Injection {
     fun provideRepository(context: Context): UserRepository {
-        val apiService = ApiConfig().getApiService()
         val pref = UserPreference.getInstance(context.dataStore)
+        val apiService = ApiConfig.getApiService(context)
         return UserRepository.getInstance(pref, apiService)
     }
 }

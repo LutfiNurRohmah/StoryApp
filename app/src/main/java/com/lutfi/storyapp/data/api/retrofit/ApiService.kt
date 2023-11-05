@@ -2,8 +2,10 @@ package com.lutfi.storyapp.data.api.retrofit
 
 import com.lutfi.storyapp.data.api.response.LoginResponse
 import com.lutfi.storyapp.data.api.response.RegisterResponse
+import com.lutfi.storyapp.data.api.response.StoryResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -22,4 +24,6 @@ interface ApiService {
         @Field("password") password: String
     ) : LoginResponse
 
+    @GET("stories")
+    suspend fun getStories(): StoryResponse
 }

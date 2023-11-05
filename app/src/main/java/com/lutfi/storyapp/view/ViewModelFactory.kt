@@ -9,7 +9,7 @@ import com.lutfi.storyapp.view.login.LoginViewModel
 import com.lutfi.storyapp.view.main.MainViewModel
 import com.lutfi.storyapp.view.register.RegisterViewModel
 
-class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory private constructor(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
