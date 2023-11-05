@@ -1,5 +1,6 @@
 package com.lutfi.storyapp.data.api.retrofit
 
+import com.lutfi.storyapp.data.api.response.DetailStoryResponse
 import com.lutfi.storyapp.data.api.response.LoginResponse
 import com.lutfi.storyapp.data.api.response.RegisterResponse
 import com.lutfi.storyapp.data.api.response.StoryResponse
@@ -7,6 +8,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @FormUrlEncoded
@@ -26,4 +28,9 @@ interface ApiService {
 
     @GET("stories")
     suspend fun getStories(): StoryResponse
+
+    @GET("stories/{id}")
+    suspend fun getDetailStory(
+        @Path("id") id: String?
+    ): DetailStoryResponse
 }

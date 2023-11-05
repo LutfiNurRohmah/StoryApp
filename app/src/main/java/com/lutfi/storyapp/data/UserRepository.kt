@@ -1,7 +1,9 @@
 package com.lutfi.storyapp.data
 
+import android.util.Log
 import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.data.api.response.LoginResponse
+import com.lutfi.storyapp.data.api.response.Story
 import com.lutfi.storyapp.data.api.retrofit.ApiService
 import com.lutfi.storyapp.data.pref.UserModel
 import com.lutfi.storyapp.data.pref.UserPreference
@@ -33,6 +35,11 @@ class UserRepository private constructor(
 
     suspend fun getStories() : List<ListStoryItem> {
         return apiService.getStories().listStory
+    }
+    suspend fun getDetailStory(id: String) : Story? {
+        val response = apiService.getDetailStory(id).story
+        Log.d("apii", "$response")
+        return response
     }
 
     companion object {
