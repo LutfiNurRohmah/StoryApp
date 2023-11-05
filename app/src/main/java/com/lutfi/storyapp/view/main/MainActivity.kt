@@ -3,7 +3,6 @@ package com.lutfi.storyapp.view.main
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowInsets
@@ -36,14 +35,13 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getSession().observe(this) { user ->
             if (!user.isLogin) {
-                Log.d("APAYAAAAA", "APAYAAAA: ${user.token}")
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
+            } else if (user.isLogin) {
+                setupAction()
             }
         }
-
         setupView()
-        setupAction()
     }
 
     private fun setupView() {
@@ -71,7 +69,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-
         val layoutManager = LinearLayoutManager(this)
         binding.rvStories.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
@@ -86,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setStoriesData(stories: List<ListStoryItem>) {
+    private fun setStoriesData(stories: List<ListStoryItem?>) {
         val adapter = StoriesAdapter()
         adapter.submitList(stories)
         binding.rvStories.adapter = adapter

@@ -1,29 +1,17 @@
 package com.lutfi.storyapp.data.api.retrofit
 
-import android.util.Log
-import okhttp3.Interceptor
+import android.content.Context
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiConfig {
-    fun getApiService(token: String): ApiService {
+object ApiConfig {
+    fun getApiService(context: Context): ApiService {
         val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-
-        Log.d("TOKEN", "token = $token")
-
-        val authInterceptor = Interceptor { chain ->
-            val req = chain.request()
-            val requestHeaders = req.newBuilder()
-                .addHeader("Authorization", "Bearer $token")
-                .build()
-            chain.proceed(requestHeaders)
-        }
-
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .addInterceptor(authInterceptor)
+            .addInterceptor(AuthInterceptor(context))
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("https://story-api.dicoding.dev/v1/")

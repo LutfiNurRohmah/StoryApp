@@ -30,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
-//        setupAction()
         loginUser()
     }
 
@@ -45,25 +44,6 @@ class LoginActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
-    }
-
-    private fun setupAction() {
-        binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-            viewModel.saveSession(UserModel(email, "sample_token"))
-            AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-                setPositiveButton("Lanjut") { _, _ ->
-                    val intent = Intent(context, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
-                create()
-                show()
-            }
-        }
     }
 
     private fun loginUser() {
@@ -82,10 +62,6 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 viewModel.login(email, password)
             }
-
-            viewModel.token.observe(this) {
-                viewModel.saveSession(UserModel(email, it.toString()))
-            }
         }
     }
 
@@ -95,6 +71,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showAlert(isSuccess: Boolean) {
         viewModel.messages.observe(this){ response ->
+            val email = binding.emailEditText.text.toString()
+            viewModel.token.observe(this) {
+                viewModel.saveSession(UserModel(email, it.toString()))
+            }
             AlertDialog.Builder(this).apply {
                 if (isSuccess) {
                     setTitle("Login Berhasil")

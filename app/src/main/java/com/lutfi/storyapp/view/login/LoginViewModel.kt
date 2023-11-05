@@ -31,21 +31,23 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
         }
     }
 
-    suspend fun login(email: String, password: String) {
+    fun login(email: String, password: String) {
         _isLoading.value = true
-        try {
-            val response = repository.loginUser(email, password)
-            _isLoading.value = false
-            _token.value = response.loginResult?.token
-            _isSuccess.value = true
-            _messages.value = response.message
-        } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-            val errorMessage = errorBody.message
-            _isLoading.value = false
-            _isSuccess.value = false
-            _messages.value = errorMessage.toString()
+        viewModelScope.launch {
+            try {
+                val response = repository.loginUser(email, password)
+                _isLoading.value = false
+                _token.value = response.loginResult?.token
+                _isSuccess.value = true
+                _messages.value = response.message
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                _isLoading.value = false
+                _isSuccess.value = false
+                _messages.value = errorMessage.toString()
+            }
         }
     }
 }

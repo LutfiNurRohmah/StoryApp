@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: UserRepository): ViewModel() {
 
-    private val _listStories = MutableLiveData<List<ListStoryItem>>()
-    val listStories: LiveData<List<ListStoryItem>> = _listStories
+    private val _listStories = MutableLiveData<List<ListStoryItem?>>()
+    val listStories: LiveData<List<ListStoryItem?>> = _listStories
 
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
@@ -24,7 +24,9 @@ class MainViewModel(private val repository: UserRepository): ViewModel() {
             repository.logout()
         }
     }
-    suspend fun getStories() {
-        _listStories.value = repository.getStories()
+    fun getStories() {
+        viewModelScope.launch {
+            _listStories.value = repository.getStories()
+        }
     }
 }
