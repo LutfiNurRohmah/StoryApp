@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/imageStory"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="190dp"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/backgrounds/scenic"
             card_view:layout_constraintStart_toStartOf="parent"
@@ -30,11 +30,11 @@
             android:id="@+id/titleStoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginStart="16dp"
             android:text="@string/judul_story"
             android:textStyle="bold"
-            android:textSize="22sp"
+            android:textSize="20sp"
             card_view:layout_constraintTop_toBottomOf="@id/imageStory"
             card_view:layout_constraintStart_toStartOf="parent" />
 
@@ -44,14 +44,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:text="@string/deskripsi_story"
-            android:textSize="16sp"
-            android:maxLines="1"
+            android:textSize="14sp"
             android:ellipsize="marquee"
             card_view:layout_constraintTop_toBottomOf="@+id/titleStoryTextView"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintBottom_toBottomOf="parent" />
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            android:singleLine="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
