@@ -1,5 +1,6 @@
-package com.lutfi.storyapp.adapter
+package com.lutfi.storyapp.view.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.databinding.ItemStoriesBinding
+import com.lutfi.storyapp.view.detailstory.DetailStoryActivity
 
 class StoriesAdapter : ListAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -19,6 +21,14 @@ class StoriesAdapter : ListAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(D
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val stories = getItem(position)
         holder.bind(stories)
+
+        val id = stories.id
+
+        holder.itemView.setOnClickListener {
+            val intentDetail = Intent(holder.itemView.context, DetailStoryActivity::class.java)
+            intentDetail.putExtra("id_story", id)
+            holder.itemView.context.startActivity(intentDetail)
+        }
     }
 
     class MyViewHolder(val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {

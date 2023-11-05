@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lutfi.storyapp.R
-import com.lutfi.storyapp.adapter.StoriesAdapter
 import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.databinding.ActivityMainBinding
 import com.lutfi.storyapp.view.ViewModelFactory
