@@ -1,6 +1,7 @@
 package com.lutfi.storyapp.data
 
 import android.util.Log
+import com.lutfi.storyapp.data.api.response.ErrorResponse
 import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.data.api.response.LoginResponse
 import com.lutfi.storyapp.data.api.response.Story
@@ -8,6 +9,8 @@ import com.lutfi.storyapp.data.api.retrofit.ApiService
 import com.lutfi.storyapp.data.pref.UserModel
 import com.lutfi.storyapp.data.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class UserRepository private constructor(
     private val userPreference: UserPreference,
@@ -40,6 +43,10 @@ class UserRepository private constructor(
         val response = apiService.getDetailStory(id).story
         Log.d("apii", "$response")
         return response
+    }
+
+    suspend fun addStory(file: MultipartBody.Part, desc: RequestBody): ErrorResponse{
+        return apiService.addStory(file, desc)
     }
 
     companion object {

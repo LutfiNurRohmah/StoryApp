@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">StoryApp</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="deskripsi">Deskripsi</string>
+    <string name="upload">Upload</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
     <string name="signup">Daftar</string>
     <string name="signup2">Register Dicoding Story</string>
     <string name="login">Masuk</string>

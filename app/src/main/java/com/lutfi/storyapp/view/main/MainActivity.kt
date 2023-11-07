@@ -14,6 +14,7 @@ import com.lutfi.storyapp.R
 import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.databinding.ActivityMainBinding
 import com.lutfi.storyapp.view.ViewModelFactory
+import com.lutfi.storyapp.view.addstory.AddStoryActivity
 import com.lutfi.storyapp.view.welcome.WelcomeActivity
 import kotlinx.coroutines.launch
 
@@ -37,6 +38,11 @@ class MainActivity : AppCompatActivity() {
             } else if (user.isLogin) {
                 setupAction()
             }
+        }
+
+        binding.fabAddStory.setOnClickListener {
+            val intent = Intent(this@MainActivity, AddStoryActivity::class.java)
+            startActivity(intent)
         }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -25,9 +25,6 @@ android {
                 "proguard-rules.pro"
             )
         }
-        debug {
-
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -62,4 +59,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
 }
