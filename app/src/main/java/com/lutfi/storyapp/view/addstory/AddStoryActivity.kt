@@ -111,10 +111,13 @@ class AddStoryActivity : AppCompatActivity() {
                 showToast(it)
             }
 
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-
+            viewModel.isSuccess.observe(this) {
+                if (it) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }
+            }
         } ?: showToast(getString(R.string.empty_image_warning))
     }
 
