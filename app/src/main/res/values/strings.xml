@@ -20,4 +20,5 @@
     <string name="logout">Keluar</string>
     <string name="judul_story">Dicoding Story</string>
     <string name="deskripsi_story">Pada hari ini aku belajar tentang Android, iOS, Machine Learning, Cloud, Front-End, Back-End, dan bidang IT lainnya</string>
+    <string name="image_of_login_page">Image of login page</string>
 </resources>
