@@ -62,23 +62,22 @@ class LoginActivity : AppCompatActivity() {
             viewModel.token.observe(this) {
                 viewModel.saveSession(UserModel(email, it.toString()))
             }
-            AlertDialog.Builder(this).apply {
-                if (isSuccess) {
-                    setTitle("Login Berhasil")
-                    setMessage(response)
-                    setPositiveButton("Lanjut") { _, _ ->
-                        val intent = Intent(context, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
-                    }
-                } else if (!isSuccess) {
+
+            if (isSuccess) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            } else if (!isSuccess) {
+                AlertDialog.Builder(this).apply {
                     setTitle("Login Gagal")
                     setMessage(response)
-                    setNegativeButton("Kembali", null)
+                    setNegativeButton("Kembali") { dialog, which ->
+                        dialog.cancel()
+                    }
+                    create()
+                    show()
                 }
-                create()
-                show()
             }
         }
     }

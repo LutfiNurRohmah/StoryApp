@@ -59,23 +59,21 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showAlert(isSuccess: Boolean) {
         viewModel.messages.observe(this){ response ->
-            AlertDialog.Builder(this).apply {
-                if (isSuccess) {
-                    setTitle("Register Berhasil")
-                    setMessage(response)
-                    setPositiveButton("Lanjut") { _, _ ->
-                        val intent = Intent(context, WelcomeActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
-                    }
-                } else if (!isSuccess) {
+            if (isSuccess) {
+                val intent = Intent(this, WelcomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            } else if (!isSuccess) {
+                AlertDialog.Builder(this).apply {
                     setTitle("Register Gagal")
                     setMessage(response)
-                    setNegativeButton("Kembali", null)
+                    setNegativeButton("Kembali") { dialog, which ->
+                        dialog.cancel()
+                    }
+                    create()
+                    show()
                 }
-                create()
-                show()
             }
         }
     }
