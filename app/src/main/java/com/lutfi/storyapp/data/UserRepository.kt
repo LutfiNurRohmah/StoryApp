@@ -49,6 +49,10 @@ class UserRepository private constructor(
         return apiService.addStory(file, desc)
     }
 
+    suspend fun getStoriesWithLocation() : List<ListStoryItem> {
+        return apiService.getStoriesWithLocation().listStory
+    }
+
     companion object {
         @Volatile
         private var instance: UserRepository? = null
