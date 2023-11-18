@@ -1,6 +1,8 @@
 package com.lutfi.storyapp.view.maps
 
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.lutfi.storyapp.R
 import com.lutfi.storyapp.data.api.response.ListStoryItem
@@ -59,7 +62,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             setMarkers(data)
         }
 
-
+        setMapStyle()
     }
 
     private fun setMarkers(dataa: List<ListStoryItem>) {
@@ -83,5 +86,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 300
             )
         )
+    }
+
+    private fun setMapStyle() {
+        try {
+            val success =
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style))
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (exception: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", exception)
+        }
+    }
+
+    //use live template logt to create this
+    companion object {
+        private const val TAG = "MapsActivity"
     }
 }
