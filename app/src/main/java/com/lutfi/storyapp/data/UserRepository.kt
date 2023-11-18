@@ -1,6 +1,11 @@
 package com.lutfi.storyapp.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.lutfi.storyapp.data.api.response.ErrorResponse
 import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.data.api.response.LoginResponse
@@ -36,8 +41,15 @@ class UserRepository private constructor(
         return apiService.login(email, password)
     }
 
-    suspend fun getStories() : List<ListStoryItem> {
-        return apiService.getStories().listStory
+    fun getStories() : LiveData<PagingData<ListStoryItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoriesPagingSource(apiService)
+            }
+        ).liveData
     }
     suspend fun getDetailStory(id: String) : Story? {
         val response = apiService.getDetailStory(id).story
