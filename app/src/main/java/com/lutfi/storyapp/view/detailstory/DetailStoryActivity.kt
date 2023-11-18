@@ -1,7 +1,6 @@
 package com.lutfi.storyapp.view.detailstory
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -25,13 +24,9 @@ class DetailStoryActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val id = intent.getStringExtra("id_story")
-        Log.d("Dataaaaaaaa", "id = $id")
-
+        val id = intent.getStringExtra(ID_STORY)
 
         viewModel.getDetail(id.toString())
-        Log.d("dataaaa2", "apaa")
-
 
         viewModel.detailStory.observe(this) {
             setDetailStory(it)
@@ -54,7 +49,6 @@ class DetailStoryActivity : AppCompatActivity() {
     private fun showLoading(state: Boolean) { binding.progressBar.visibility = if (state) View.VISIBLE else View.GONE }
 
     private fun setDetailStory(story: Story?) {
-        Log.d("dataaaa", "isi: $story")
         with(binding) {
             titleStoryTextView.text = story?.name
             descStoryTextView.text= story?.description
@@ -62,5 +56,9 @@ class DetailStoryActivity : AppCompatActivity() {
                 .load(story?.photoUrl)
                 .into(imageStory)
         }
+    }
+
+    companion object {
+        private const val ID_STORY = "id_story"
     }
 }

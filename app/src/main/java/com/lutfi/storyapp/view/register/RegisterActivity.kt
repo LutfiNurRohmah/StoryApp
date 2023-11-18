@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.lutfi.storyapp.R
 import com.lutfi.storyapp.databinding.ActivityRegisterBinding
 import com.lutfi.storyapp.view.ViewModelFactory
 import com.lutfi.storyapp.view.welcome.WelcomeActivity
@@ -64,11 +65,11 @@ class RegisterActivity : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
-            } else if (!isSuccess) {
+            } else {
                 AlertDialog.Builder(this).apply {
-                    setTitle("Register Gagal")
+                    setTitle(R.string.register_gagal)
                     setMessage(response)
-                    setNegativeButton("Kembali") { dialog, which ->
+                    setNegativeButton(R.string.kembali) { dialog, _ ->
                         dialog.cancel()
                     }
                     create()

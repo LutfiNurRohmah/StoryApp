@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.lutfi.storyapp.R
 import com.lutfi.storyapp.data.pref.UserModel
 import com.lutfi.storyapp.databinding.ActivityLoginBinding
 import com.lutfi.storyapp.view.ViewModelFactory
@@ -68,11 +69,11 @@ class LoginActivity : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
-            } else if (!isSuccess) {
+            } else {
                 AlertDialog.Builder(this).apply {
-                    setTitle("Login Gagal")
+                    setTitle(R.string.login_gagal)
                     setMessage(response)
-                    setNegativeButton("Kembali") { dialog, which ->
+                    setNegativeButton(R.string.kembali) { dialog, _ ->
                         dialog.cancel()
                     }
                     create()
