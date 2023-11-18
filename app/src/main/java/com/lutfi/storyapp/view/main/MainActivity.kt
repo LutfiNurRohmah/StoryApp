@@ -15,6 +15,7 @@ import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.databinding.ActivityMainBinding
 import com.lutfi.storyapp.view.ViewModelFactory
 import com.lutfi.storyapp.view.addstory.AddStoryActivity
+import com.lutfi.storyapp.view.maps.MapsActivity
 import com.lutfi.storyapp.view.welcome.WelcomeActivity
 import kotlinx.coroutines.launch
 
@@ -53,6 +54,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_logout) {
             viewModel.logout()
+        } else if (item.itemId == R.id.menu_maps) {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }
