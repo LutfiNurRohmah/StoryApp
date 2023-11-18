@@ -24,4 +24,7 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="maps">Maps</string>
     <string name="coba_lagi">Coba Lagi</string>
+    <string name="login_gagal">Login Gagal</string>
+    <string name="kembali">Kembali</string>
+    <string name="register_gagal">Register Gagal</string>
 </resources>

@@ -33,7 +33,7 @@ class UserRepository private constructor(
         userPreference.logout()
     }
 
-    suspend fun registerUser(name: String, email: String, password: String) : String? {
+    suspend fun registerUser(name: String, email: String, password: String) : String {
         return apiService.register(name, email, password).message.toString()
     }
 

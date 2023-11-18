@@ -26,9 +26,9 @@ class StoriesAdapter : PagingDataAdapter<ListStoryItem, StoriesAdapter.MyViewHol
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val stories = getItem(position)
-        var imgPhoto: ImageView = holder.itemView.findViewById(R.id.imageStory)
-        var tvName: TextView = holder.itemView.findViewById(R.id.titleStoryTextView)
-        var tvDescription: TextView = holder.itemView.findViewById(R.id.descStoryTextView)
+        val imgPhoto: ImageView = holder.itemView.findViewById(R.id.imageStory)
+        val tvName: TextView = holder.itemView.findViewById(R.id.titleStoryTextView)
+        val tvDescription: TextView = holder.itemView.findViewById(R.id.descStoryTextView)
 
         if (stories != null) {
             holder.bind(stories)
@@ -50,7 +50,7 @@ class StoriesAdapter : PagingDataAdapter<ListStoryItem, StoriesAdapter.MyViewHol
         }
     }
 
-    class MyViewHolder(val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(stories: ListStoryItem) {
             with(binding) {
                 titleStoryTextView.text = stories.name

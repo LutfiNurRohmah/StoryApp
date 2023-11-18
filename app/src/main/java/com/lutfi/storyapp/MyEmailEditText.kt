@@ -30,7 +30,7 @@ class MyEmailEditText : AppCompatEditText {
                 val email = s.toString()
                 val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
-                if (!email.matches(emailPattern.toRegex()) && email.length > 0) {
+                if (!email.matches(emailPattern.toRegex()) && email.isNotEmpty()) {
                     setError("Format email tidak valid", null)
                 } else {
                     error = null

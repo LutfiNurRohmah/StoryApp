@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             if (!user.isLogin) {
                 startActivity(Intent(this, WelcomeActivity::class.java))
                 finish()
-            } else if (user.isLogin) {
+            } else {
                 setupAction()
             }
         }
@@ -62,18 +61,6 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvStories.layoutManager = layoutManager
 
-        viewModel.isLoading.observe(this){
-            showLoading(it)
-        }
-
-//        lifecycleScope.launch {
-//            viewModel.getStories()
-//        }
-
-        viewModel.messages.observe(this){
-            showToast(it)
-        }
-
         setStoriesData()
     }
 
@@ -84,16 +71,14 @@ class MainActivity : AppCompatActivity() {
                 adapter.retry()
             }
         )
-        viewModel.story.observe(this, {
+        viewModel.story.observe(this) {
+            showLoading(true)
             adapter.submitData(lifecycle, it)
-        })
+            showLoading(false)
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    private fun showToast(message: String?) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
