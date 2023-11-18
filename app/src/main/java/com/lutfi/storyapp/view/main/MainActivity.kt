@@ -8,15 +8,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lutfi.storyapp.R
-import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.databinding.ActivityMainBinding
 import com.lutfi.storyapp.view.ViewModelFactory
 import com.lutfi.storyapp.view.addstory.AddStoryActivity
+import com.lutfi.storyapp.view.maps.MapsActivity
 import com.lutfi.storyapp.view.welcome.WelcomeActivity
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +51,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_logout) {
             viewModel.logout()
+        } else if (item.itemId == R.id.menu_maps) {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -65,23 +66,27 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        lifecycleScope.launch {
-            viewModel.getStories()
-        }
+//        lifecycleScope.launch {
+//            viewModel.getStories()
+//        }
 
         viewModel.messages.observe(this){
             showToast(it)
         }
 
-        viewModel.listStories.observe(this) {
-            setStoriesData(it)
-        }
+        setStoriesData()
     }
 
-    private fun setStoriesData(stories: List<ListStoryItem?>) {
+    private fun setStoriesData() {
         val adapter = StoriesAdapter()
-        adapter.submitList(stories)
-        binding.rvStories.adapter = adapter
+        binding.rvStories.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
+        viewModel.story.observe(this, {
+            adapter.submitData(lifecycle, it)
+        })
     }
 
     private fun showLoading(isLoading: Boolean) {
