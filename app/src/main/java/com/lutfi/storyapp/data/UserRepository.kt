@@ -2,6 +2,7 @@ package com.lutfi.storyapp.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -11,6 +12,7 @@ import com.lutfi.storyapp.data.api.response.ListStoryItem
 import com.lutfi.storyapp.data.api.response.LoginResponse
 import com.lutfi.storyapp.data.api.response.Story
 import com.lutfi.storyapp.data.api.retrofit.ApiService
+import com.lutfi.storyapp.data.database.StoryDatabase
 import com.lutfi.storyapp.data.pref.UserModel
 import com.lutfi.storyapp.data.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +21,7 @@ import okhttp3.RequestBody
 
 class UserRepository private constructor(
     private val userPreference: UserPreference,
+    private val storyDatabase: StoryDatabase,
     private val apiService: ApiService,
 ){
     suspend fun saveSession(user: UserModel) {
@@ -42,12 +45,15 @@ class UserRepository private constructor(
     }
 
     fun getStories() : LiveData<PagingData<ListStoryItem>> {
+        @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = {
-                StoriesPagingSource(apiService)
+//                StoriesPagingSource(apiService)
+                storyDatabase.storyDao().getAllStory()
             }
         ).liveData
     }
@@ -70,10 +76,11 @@ class UserRepository private constructor(
         private var instance: UserRepository? = null
         fun getInstance(
             userPreference: UserPreference,
+            storyDatabase: StoryDatabase,
             apiService: ApiService
         ): UserRepository =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(userPreference, apiService)
+                instance ?: UserRepository(userPreference, storyDatabase, apiService)
             }.also { instance = it }
     }
 }

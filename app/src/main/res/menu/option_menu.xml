@@ -8,6 +8,11 @@
             android:title="@string/maps"
             app:showAsAction="ifRoom" />
         <item
+            android:id="@+id/menu_favorite"
+            android:icon="@drawable/baseline_favorite_24"
+            android:title="@string/title_favorite"
+            app:showAsAction="ifRoom" />
+        <item
             android:id="@+id/menu_logout"
             android:title="@string/logout"
             app:showAsAction="never" />
