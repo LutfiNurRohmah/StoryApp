@@ -27,4 +27,5 @@
     <string name="login_gagal">Login Gagal</string>
     <string name="kembali">Kembali</string>
     <string name="register_gagal">Register Gagal</string>
+    <string name="title_favorite">Favorite Story</string>
 </resources>
