@@ -3,10 +3,10 @@
     <style name="Base.Theme.StoryApp" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/blue2</item>
+        <item name="colorPrimary">@color/green</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/navy</item>
+        <item name="colorSecondary">@color/bluee</item>
         <item name="colorOnSecondary">@color/white</item>
 
     </style>
