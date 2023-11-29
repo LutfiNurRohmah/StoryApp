@@ -11,18 +11,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/loginTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signup2"
-        android:textColor="@color/navy"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+<!--    <TextView-->
+<!--        android:id="@+id/loginTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/signup"-->
+<!--        android:textColor="@color/bluee"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="30sp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
 
     <ImageView
         android:id="@+id/imageView"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline2"
-        app:srcCompat="@drawable/image_signup" />
+        app:srcCompat="@drawable/image_welcome2" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -171,7 +171,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/blue2"
+        android:backgroundTint="@color/bluee"
         android:text="@string/signup"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -187,7 +187,7 @@
         android:layout_height="64dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.30191082"
+        app:layout_constraintGuide_percent="0.45"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -195,7 +195,7 @@
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.13" />
 
     <ProgressBar
         android:id="@+id/progressBar"
