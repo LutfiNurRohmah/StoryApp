@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import com.lutfi.storyapp.data.api.response.ListStoryItem
 
 @Database(
-    entities = [ListStoryItem::class, RemoteKeys::class],
-    version = 2,
+    entities = [ListStoryItem::class, RemoteKeys::class, FavoriteStory::class],
+    version = 3,
     exportSchema = false
 )
 abstract class StoryDatabase : RoomDatabase() {

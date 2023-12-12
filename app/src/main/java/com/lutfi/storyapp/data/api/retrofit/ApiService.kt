@@ -40,7 +40,7 @@ interface ApiService {
 
     @GET("stories/{id}")
     suspend fun getDetailStory(
-        @Path("id") id: String?
+        @Path("id") id: String
     ): DetailStoryResponse
 
     @Multipart

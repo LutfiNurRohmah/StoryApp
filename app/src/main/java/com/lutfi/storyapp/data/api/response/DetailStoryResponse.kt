@@ -11,7 +11,7 @@ data class DetailStoryResponse(
 	val message: String? = null,
 
 	@field:SerializedName("story")
-	val story: Story? = null
+	val story: Story
 )
 
 data class Story(
@@ -29,11 +29,11 @@ data class Story(
 	val description: String? = null,
 
 	@field:SerializedName("lon")
-	val lon: Any? = null,
+	val lon: Double? = null,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String = "",
 
 	@field:SerializedName("lat")
-	val lat: Any? = null
+	val lat: Double? = null
 )
