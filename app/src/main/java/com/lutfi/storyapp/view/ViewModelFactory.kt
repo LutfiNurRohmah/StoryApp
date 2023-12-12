@@ -7,6 +7,7 @@ import com.lutfi.storyapp.data.UserRepository
 import com.lutfi.storyapp.di.Injection
 import com.lutfi.storyapp.view.addstory.AddStoryViewModel
 import com.lutfi.storyapp.view.detailstory.DetailStoryViewModel
+import com.lutfi.storyapp.view.favoritestory.FavoriteStoryViewModel
 import com.lutfi.storyapp.view.login.LoginViewModel
 import com.lutfi.storyapp.view.main.MainViewModel
 import com.lutfi.storyapp.view.maps.MapsViewModel
@@ -33,6 +34,9 @@ class ViewModelFactory private constructor(private val repository: UserRepositor
             }
             modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
                 MapsViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(FavoriteStoryViewModel::class.java) -> {
+                FavoriteStoryViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

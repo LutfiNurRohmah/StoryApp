@@ -12,6 +12,7 @@ import com.lutfi.storyapp.R
 import com.lutfi.storyapp.databinding.ActivityMainBinding
 import com.lutfi.storyapp.view.ViewModelFactory
 import com.lutfi.storyapp.view.addstory.AddStoryActivity
+import com.lutfi.storyapp.view.favoritestory.FavoriteStoryActivity
 import com.lutfi.storyapp.view.maps.MapsActivity
 import com.lutfi.storyapp.view.welcome.WelcomeActivity
 
@@ -52,6 +53,9 @@ class MainActivity : AppCompatActivity() {
             viewModel.logout()
         } else if (item.itemId == R.id.menu_maps) {
             val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+        } else if (item.itemId == R.id.menu_favorite) {
+            val intent = Intent(this, FavoriteStoryActivity::class.java)
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
