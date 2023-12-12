@@ -18,9 +18,19 @@
         android:theme="@style/Theme.StoryApp"
         tools:targetApi="31">
         <activity
+            android:name=".view.welcome.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashScreenStyle" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".view.favoritestory.FavoriteStoryActivity"
-            android:label="@string/favorite_story"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/favorite_story" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -45,8 +55,8 @@
             android:exported="false" />
         <activity
             android:name=".view.detailstory.DetailStoryActivity"
-            android:label="@string/detail_story"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/detail_story" />
         <activity
             android:name=".view.welcome.WelcomeActivity"
             android:exported="false" />
@@ -58,13 +68,8 @@
             android:exported="false" />
         <activity
             android:name=".view.main.MainActivity"
-            android:label="@string/story_app"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="true"
+            android:label="@string/story_app">
         </activity>
 
         <provider
